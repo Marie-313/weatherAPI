@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: linear-gradient(
+            to right,
+            rgba(135, 206, 250, 0.7),
+            rgba(235, 233, 233, 0.7)
+          ),
+          url("https://example.com/clouds.jpg") no-repeat center center fixed; /* Background image of clouds with gradient color */
+        background-size: cover; /* Cover the entire background */
+        cursor: default; /* Set cursor to default */
+      }
+      .container {
+        background: linear-gradient(
+          to right,
+          rgb(121, 120, 120),
+          cream
+        ); /* Gradient from grey to cream */
+        padding: 60px; /* Increased padding for a bigger container */
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        width: 400px; /* Set a fixed width for the container */
+      }
+
+      button {
+        cursor: pointer;
+      }
+
+      h1 {
+        color: rgb(141, 2, 141); /* Set title color to purple */
+      }
+      select {
+        padding: 10px;
+        margin: 10px 0;
+      }
+      .footer {
+        margin-top: 20px;
+        font-size: 0.9em;
+        color: rgb(253, 83, 168); /* Set footer text color to hot pink */
+      }
+      option {
+        cursor: pointer; /* Change cursor to pointer for options */
+      }
+      option[value="michigan"] {
+        color: blue;
+      }
+      option[value="london"] {
+        color: gray;
+      }
+      option[value="thailand"] {
+        color: orange;
+      }
+      option[value="southafrica"] {
+        color: green;
+      }
+      option[value="russia"] {
+        color: red;
+      }
+      option[value="alaska"] {
+        color: teal;
+      }
+      .humidity {
+        color: red; /* Set humidity text color to red */
+      }
+      .wind {
+        color: blue; /* Set wind text color to blue */
+      }
+      .degrees {
+        color: rgb(230, 151, 4); /* Set degrees text color to orange */
+      }
+      .description {
+        color: rgb(189, 112, 126); /* Set description text color to pink */
+      }
+      .cloudy {
+        color: purple; /* Set cloudy description text color to purple */
+      }
+      .hot-humid {
+        color: brown; /* Set hot and humid text color to brown */
+      }
+      .warm-sunny {
+        color: hotpink; /* Set warm and sunny text color to hot pink */
+      }
+      .freezing-snowy {
+        color: turquoise; /* Set freezing and snowy text color to turquoise */
+      }
+      .very-cold {
+        color: grey; /* Set very cold with heavy snowfall text color to grey */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Weather App</h1>
+      <select id="location">
+        <option value="michigan" data-description="Cold and snowy winters.">
+          Michigan
+        </option>
+        <option value="london" data-description="Cloudy with frequent rain.">
+          London
+        </option>
+        <option
+          value="thailand"
+          data-description="<span class='hot-humid'>Hot and humid</span> all year."
+        >
+          Thailand
+        </option>
+        <option
+          value="southafrica"
+          data-description="<span class='warm-sunny'>Warm and sunny</span> climate."
+        >
+          South Africa
+        </option>
+        <option
+          value="russia"
+          data-description="<span class='freezing-snowy'>Freezing and snowy</span> temperatures in winter."
+        >
+          Russia
+        </option>
+        <option
+          value="alaska"
+          data-description="<span class='very-cold'>Very cold with heavy snowfall</span>."
+        >
+          Alaska
+        </option>
+      </select>
+      <div id="weather-info">Select a location to see the weather</div>
+      <div class="footer">
+        Created by <span style="color: hotpink">Maria Weathington</span>
+      </div>
+    </div>
+    <script>
+      const weatherData = {
+        michigan: {
+          description: "<span class='description'>Cold and snowy</span>",
+          degrees: "-5°C",
+          humidity: "70%",
+          wind: "15 km/h",
+          emoji: "❄️",
+          humidityEmoji: "💧",
+          windEmoji: "💨",
+          degreeEmoji: "🌡️",
+        },
+        london: {
+          description:
+            "<span class='cloudy'>Cloudy with a chance of rain</span>",
+          degrees: "10°C",
+          humidity: "80%",
+          wind: "20 km/h",
+          emoji: "☁️",
+          humidityEmoji: "💧",
+          windEmoji: "💨",
+          degreeEmoji: "🌡️",
+        },
+        thailand: {
+          description: "<span class='hot-humid'>Hot and humid</span>",
+          degrees: "35°C",
+          humidity: "90%",
+          wind: "10 km/h",
+          emoji: "🌞",
+          humidityEmoji: "💧",
+          windEmoji: "💨",
+          degreeEmoji: "🌡️",
+        },
+        southafrica: {
+          description: "<span class='warm-sunny'>Warm and sunny</span>",
+          degrees: "25°C",
+          humidity: "50%",
+          wind: "5 km/h",
+          emoji: "🌤️",
+          humidityEmoji: "💧",
+          windEmoji: "💨",
+          degreeEmoji: "🌡️",
+        },
+        russia: {
+          description: "<span class='freezing-snowy'>Freezing and snowy</span>",
+          degrees: "-10°C",
+          humidity: "60%",
+          wind: "25 km/h",
+          emoji: "❄️",
+          humidityEmoji: "💧",
+          windEmoji: "💨",
+          degreeEmoji: "🌡️",
+        },
+        alaska: {
+          description:
+            "<span class='very-cold'>Very cold with heavy snowfall</span>",
+          degrees: "-15°C",
+          humidity: "75%",
+          wind: "30 km/h",
+          emoji: "❄️",
+          humidityEmoji: "💧",
+          windEmoji: "💨",
+          degreeEmoji: "🌡️",
+        },
+      };
+
+      const locationSelect = document.getElementById("location");
+      const weatherInfo = document.getElementById("weather-info");
+
+      locationSelect.addEventListener("change", function () {
+        const selectedLocation = this.value;
+        const {
+          description,
+          degrees,
+          humidity,
+          wind,
+          emoji,
+          humidityEmoji,
+          windEmoji,
+          degreeEmoji,
+        } = weatherData[selectedLocation];
+        weatherInfo.innerHTML = `${emoji} ${description}<br><span class="degrees">Degrees:</span> ${degrees} ${degreeEmoji}<br><span class="humidity">Humidity:</span> ${humidity} ${humidityEmoji}<br><span class="wind">Wind:</span> ${wind} ${windEmoji}`;
+      });
+
+      // Initialize with default value
+      const defaultLocation = "michigan";
+      const {
+        description,
+        degrees,
+        humidity,
+        wind,
+        emoji,
+        humidityEmoji,
+        windEmoji,
+        degreeEmoji,
+      } = weatherData[defaultLocation];
+      weatherInfo.innerHTML = `${emoji} ${description}<br><span class="degrees">Degrees:</span> ${degrees} ${degreeEmoji}<br><span class="humidity">Humidity:</span> ${humidity} ${humidityEmoji}<br><span class="wind">Wind:</span> ${wind} ${windEmoji}`;
+    </script>
+  </body>
+</html>
+````
